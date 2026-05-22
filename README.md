@@ -24,11 +24,13 @@ lldp_visualizer/
 ## Requirements
 
 ### Python dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
 ### Graphviz system binary
+
 The Python `graphviz` package is a wrapper — the Graphviz binary must also
 be installed on your system.
 
@@ -41,6 +43,7 @@ sudo apt install graphviz
 ```
 
 Verify the installation:
+
 ```bash
 dot -V
 ```
@@ -54,15 +57,15 @@ All settings live in `config.py`. Edit this file before running.
 ```python
 # Device inventory
 ROUTERS = [
-    {"host": "66.129.235.201", "port": 46034, "name": "Switch-1"},
-    {"host": "66.129.235.201", "port": 46038, "name": "Switch-2"},
-    {"host": "66.129.235.201", "port": 46042, "name": "Switch-3"},
-    {"host": "66.129.235.201", "port": 46046, "name": "Switch-4"},
+    {"host": "YOUR_HOST_IP", "port": 22, "name": "Switch-1"},
+    {"host": "YOUR_HOST_IP", "port": 22, "name": "Switch-2"},
+    {"host": "YOUR_HOST_IP", "port": 22, "name": "Switch-3"},
+    {"host": "YOUR_HOST_IP", "port": 22, "name": "Switch-4"},
 ]
 
 # Credentials
-USERNAME = "jcluser"
-PASSWORD = "Juniper1234"
+USERNAME = "your_username"
+PASSWORD = "your_password"
 
 # Output
 OUTPUT_FILENAME = "lldp_topology"
@@ -82,12 +85,14 @@ python3 main.py
 ```
 
 The tool will:
+
 1. Connect to each device via NETCONF/SSH
 2. Collect LLDP neighbor information using PyEZ's `LLDPNeighborTable`
 3. Retrieve the loopback IP address from each device
 4. Render a network diagram and save it as `lldp_topology.png`
 
 ### Example output
+
 ```
 ==================================================
   LLDP Network Visualizer
@@ -133,6 +138,7 @@ show lldp statistics
 
 **`[FALLBACK]` shown instead of `[LIVE]`**
 The device connected but returned no LLDP neighbors. Check that:
+
 - LLDP is enabled on the device (`show lldp`)
 - Enough time has passed for neighbor discovery (at least 60 seconds)
 - The virtual lab environment forwards Layer 2 multicast frames
@@ -143,6 +149,7 @@ diagram renders correctly either way.
 
 **`[TIMEOUT]` or `[CONNECT ERROR]`**
 The device is unreachable. Check that:
+
 - The host IP and port in `config.py` are correct
 - NETCONF is enabled on the device:
   ```
